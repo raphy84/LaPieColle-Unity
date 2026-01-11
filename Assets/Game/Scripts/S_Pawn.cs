@@ -8,11 +8,12 @@ public class S_Pawn : MonoBehaviour
     private void Start()
     {
         MoveToCell();
+        ActivateCell();
     }
 
     private void MoveToCell()
     {
-        Transform NewPos = _board.GetCellByNumber(_playerDatas._cellIndex)._PlayerTransform;
+        Transform NewPos = _board.GetCellByNumber(_playerDatas._cellIndex).PlayerTransform;
         transform.position = NewPos.position;
         transform.rotation = NewPos.rotation;
     }
@@ -21,5 +22,12 @@ public class S_Pawn : MonoBehaviour
     {
         _playerDatas._cellIndex = _board.GetNextCellToMove(_playerDatas._cellIndex+value);
         MoveToCell();
+        ActivateCell();
+    }
+
+    private void ActivateCell()
+    {
+        S_Cell cell = _board.GetCellByNumber(_playerDatas._cellIndex);
+        cell.Activate(this);
     }
 }

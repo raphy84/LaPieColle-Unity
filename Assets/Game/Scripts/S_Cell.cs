@@ -1,18 +1,14 @@
 using UnityEngine;
 
-public class S_Cell : MonoBehaviour
+public class S_Cell : MonoBehaviour,S_CellActivable
 {
-    [SerializeField] public Transform _PlayerTransform;
+    public Transform PlayerTransform;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public virtual void Activate(S_Pawn CurrentPawn)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(GetComponent<S_Actionnable>() != null)
+        {
+            GetComponent<S_Actionnable>().Action(CurrentPawn);
+        }
     }
 }
