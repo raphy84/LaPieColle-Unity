@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c7606f179d8e284f994e0e2fc19de47, type: 3}
-  m_Name: Hunter
+  m_Name: SO_Monkey
   m_EditorClassIdentifier: 
   rows:
   - rowNumber: 0
-    characterName: Chasseur
-    LongDialogue: Je t'es trouver !
+    characterName: Roi Singe
+    LongDialogue: "Nous t'attendions. On doit se charger de ce chasseur qui terrifie
+      la for\xEAt."
     nextRowNumber: 1
   - rowNumber: 1
-    characterName: Player
-    LongDialogue: POUIIIIC "NOOOOONNNN"
+    characterName: Gecko
+    LongDialogue: "Oui POUIK ! Je continue \xE0 le faire courir occuper vous de lui."
     nextRowNumber: 2
   - rowNumber: 2
-    characterName: Chasseur
-    LongDialogue: '"Tire" Je l''ai eu !!'
+    characterName: Roi Singe
+    LongDialogue: "Tr\xE8s bien, que doit-on faire ?"
     nextRowNumber: -1

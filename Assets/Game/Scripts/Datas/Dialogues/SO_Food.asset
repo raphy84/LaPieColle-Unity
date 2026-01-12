@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c86f26cb9264c41bc13f1171becbc8, type: 3}
-  m_Name: SO_PlayerData
+  m_Script: {fileID: 11500000, guid: 0c7606f179d8e284f994e0e2fc19de47, type: 3}
+  m_Name: SO_Food
   m_EditorClassIdentifier: 
-  _cellIndex: 0
+  rows:
+  - rowNumber: 0
+    characterName: Gecko
+    LongDialogue: A MANGER !!
+    nextRowNumber: -1
