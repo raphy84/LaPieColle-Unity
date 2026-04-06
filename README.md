@@ -3,28 +3,28 @@
 Concept de Jeu
 
 Le joueur incarne un gecko.
-L’objectif est d’éliminer Serpant le chasseur à l’aide de déplacements sur un plateau et de l’aide des singes.
+Lâ€™objectif est dâ€™Ã©liminer Serpant le chasseur Ã  lâ€™aide de dÃ©placements sur un plateau et de lâ€™aide des singes.
 
 
 Objectifs
 
 Objectif Principal
--Réduire les points de vie de Serpant à 0.
+-RÃ©duire les points de vie de Serpant Ã  0.
 
-Conditions de Défaite
--Le joueur tombe à 0 points de vie.
--En cas de défaite, la partie recommence.
+Conditions de DÃ©faite
+-Le joueur tombe Ã  0 points de vie.
+-En cas de dÃ©faite, la partie recommence.
 
 
 Boucle de Gameplay
 
-Le joueur lance un dé.
-Le joueur avance du nombre de cases indiqué (1 à 6).
-Serpant se déplace librement entre les cases.
-Serpant place un piège sur la case où il s’arrête.
-Les effets de la case du joueur sont appliqués.
+Le joueur lance un dÃ©.
+Le joueur avance du nombre de cases indiquÃ© (1 Ã  6).
+Serpant se dÃ©place librement entre les cases.
+Serpant place un piÃ¨ge sur la case oÃ¹ il sâ€™arrÃªte.
+Les effets de la case du joueur sont appliquÃ©s.
 Le tour se termine.
-Tous les 5 tours, de nouvelles cases sont générées aléatoirement.
+Tous les 5 tours, de nouvelles cases sont gÃ©nÃ©rÃ©es alÃ©atoirement.
 
 
 Types de Cases
@@ -32,27 +32,43 @@ Types de Cases
 Case Normale
 Aucun effet.
 
-Case Piège
--Placée uniquement par Serpant.
--Inflige 1 point de dégât au joueur lorsqu’il atterrit dessus.
+Case PiÃ¨ge
+-PlacÃ©e uniquement par Serpant.
+-Lance le mini-jeu de "Cache-Cache" avec le Hunter.
+-En cas de victoire, le joueur Ã©vite les dÃ©gÃ¢ts et la case est supprimÃ©e.
+-En cas de dÃ©faite, inflige 1 point de dÃ©gÃ¢t au joueur.
+
+
+Mini-Jeu Hunter (Cache-Cache)
+Le joueur doit rejoindre la zone d'arrivÃ©e sans se faire attraper par Serpant (le Hunter).
+
+Comportements du Hunter
+-DÃ©placement pathfinding pour contourner le dÃ©cor.
+-CÃ´ne de vision (Spotlight) :
+	-LumiÃ¨re Jaune : Mode recherche.
+	-LumiÃ¨re Rouge : Joueur repÃ©rÃ©, dÃ©clenche la poursuite.
+-Si le joueur est repÃ©rÃ© par le hunter il est poursuivie jusqu'a le toucher.
+-Au milieu de c'est patrouilles il fait des poses pour sentire la trace du joueur, a la fin de l'annimation il se rend a la position du joueur, une foit arriver il reprend sa routine.
+-Si le Hunter touche le joueur, le mini-jeu est perdu.
+
 
 Case Nourriture
--Rend 1 point de vie au joueur lorsqu’il marche dessus.
+-Rend 1 point de vie au joueur lorsquâ€™il marche dessus.
 
 Case Singe
 -Permet au joueur de parler au roi des singes.
 -Le joueur peut choisir une action :
-	-Retirer 5 pièges du plateau.
+	-Retirer 5 piÃ¨ges du plateau.
 	-Attaquer Serpant.
 
-Après 5 attaques de singes, Serpant meurt.
+AprÃ¨s 5 attaques de singes, Serpant meurt.
 
 
-Génération de Cases
-Toutes les 5 manches, de nouvelles cases sont générées aléatoirement.
+GÃ©nÃ©ration de Cases
+Toutes les 5 manches, de nouvelles cases sont gÃ©nÃ©rÃ©es alÃ©atoirement.
 
-Les types de cases générées sont :
+Les types de cases gÃ©nÃ©rÃ©es sont :
 -Case Singe
 -Case Nourriture
 
-Les cases existantes peuvent être remplacées.
+Les cases existantes peuvent Ãªtre remplacÃ©es.
