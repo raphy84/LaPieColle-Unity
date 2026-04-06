@@ -4,4 +4,5 @@ using UnityEngine;
 public class SO_PlayerDatas : ScriptableObject
 {
     [SerializeField] public int _cellIndex = 0;
+    [SerializeField] public bool _wonMiniGame = false;
 }

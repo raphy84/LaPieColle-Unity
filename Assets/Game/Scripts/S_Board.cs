@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System.Collections.Generic;
 
 public class S_Board : MonoBehaviour
@@ -10,6 +10,48 @@ public class S_Board : MonoBehaviour
     public void Start()
     {
         GenerateSpecialCells();
+
+        if (S_GlobalData.ReturningFromMiniGame)
+        {
+            // On g√®re l'ordre de restauration ici pour √©viter les bugs !
+            S_Hunter hunter = Object.FindAnyObjectByType<S_Hunter>();
+            S_Pawn player = Object.FindAnyObjectByType<S_Pawn>();
+
+            // 1. Restaurer le Hunter et les pi√®ges
+            if (hunter != null)
+            {
+                hunter._hunterDatas._cellIndex = S_GlobalData.HunterCellIndex;
+                hunter.MoveToCellInstant();
+                foreach (int trapIndex in S_GlobalData.TrapCellIndices)
+                {
+                    hunter.TrapCellAt(trapIndex);
+                }
+            }
+
+            // 2. Restaurer le Joueur et son r√©sultat
+            if (player != null)
+            {
+                player._heath = S_GlobalData.PlayerHealth;
+                player._playerDatas._cellIndex = S_GlobalData.PlayerCellIndex;
+
+                if (S_GlobalData.WonMiniGame)
+                {
+                    Debug.Log("WON ! Pi√®ge neutralis√©.");
+                    player.UnTrapCell();
+                }
+                else
+                {
+                    Debug.Log("LOST ! D√©g√¢t subit.");
+                    player._heath -= 1;
+                    if (player._heath <= 0) player.GameOver();
+                }
+                
+                player.MoveInstantToCell();
+                if (player._UIController != null) player._UIController.UpdateHeart(player._heath);
+            }
+
+            S_GlobalData.ResetData();
+        }
     }
 
     public S_Cell GetCellByNumber(int index)
@@ -29,20 +71,17 @@ public class S_Board : MonoBehaviour
 
     public void GenerateSpecialCells()
     {
-        int animalCount = Random.Range(4, 7);   // 4 ‡ 6
-        int foodCount = Random.Range(10, 15); // 10 ‡ 14
+        int animalCount = Random.Range(4, 7);
+        int foodCount = Random.Range(10, 15);
 
-        // RÈcupËre UNIQUEMENT les cellules normales
         List<int> normalCellIndices = GetNormalCellIndices();
 
-        // SÈcuritÈ
         if (animalCount + foodCount > normalCellIndices.Count)
         {
-            Debug.LogWarning("Pas assez de cellules normales pour la gÈnÈration.");
+            Debug.LogWarning("Pas assez de cellules normales pour la g√©n√©ration.");
             return;
         }
 
-        // AnimalCells
         for (int i = 0; i < animalCount; i++)
         {
             int index = GetRandomIndex(normalCellIndices);
@@ -50,7 +89,6 @@ public class S_Board : MonoBehaviour
             normalCellIndices.Remove(index);
         }
 
-        // FoodCells
         for (int i = 0; i < foodCount; i++)
         {
             int index = GetRandomIndex(normalCellIndices);
@@ -71,7 +109,6 @@ public class S_Board : MonoBehaviour
 
         for (int i = 0; i < _cells.Length; i++)
         {
-            // Seulement les cellules de base
             if (_cells[i] != null && _cells[i].GetType() == typeof(S_Cell))
             {
                 indices.Add(i);
@@ -87,7 +124,6 @@ public class S_Board : MonoBehaviour
         if (cell == null)
             return;
 
-        // SÈcuritÈ absolue
         if (cell.GetType() != typeof(S_Cell))
             return;
 
@@ -103,7 +139,6 @@ public class S_Board : MonoBehaviour
         S_Cell newCell = newCellGO.GetComponent<S_Cell>();
         if (newCell == null)
         {
-            Debug.LogError("Prefab sans S_Cell !");
             Destroy(newCellGO);
             return;
         }

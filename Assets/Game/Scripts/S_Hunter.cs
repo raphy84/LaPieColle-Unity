@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class S_Hunter : MonoBehaviour
@@ -12,6 +12,21 @@ public class S_Hunter : MonoBehaviour
     private Coroutine _moveCoroutine;
 
     public int _heath = 5;
+
+    private void Start()
+    {
+        // La restauration de l'tat est gre de manire dterministe par S_Board.Start()
+        // Cela vite toutes les race-conditions!
+    }
+
+    public void MoveToCellInstant()
+    {
+        Transform target = _board
+            .GetCellByNumber(_hunterDatas._cellIndex)
+            .PlayerTransform;
+        transform.position = target.position;
+        transform.rotation = target.rotation;
+    }
 
     private void MoveToCell()
     {
@@ -87,37 +102,27 @@ public class S_Hunter : MonoBehaviour
 
     private void TrapCell()
     {
-        int index = _hunterDatas._cellIndex;
+        TrapCellAt(_hunterDatas._cellIndex);
+    }
+
+    public void TrapCellAt(int index)
+    {
         S_Cell cell = _board.GetCellByNumber(index);
 
-        // Sécurité
-        if (cell == null)
+        if (cell == null || cell is S_TrapCell)
         {
             return;
         }
 
-        // Si la cellule est déjà une TrapCell, on ne fait rien
-        if (cell is S_TrapCell)
-            return;
-
-        // Sauvegarde position / rotation / parent
         Transform cellTransform = cell.transform;
         Vector3 position = cellTransform.position;
         Quaternion rotation = cellTransform.rotation;
         Transform parent = cellTransform.parent;
 
-        // Supprimer l’ancienne cellule
         Destroy(cell.gameObject);
 
-        // Instancier la TrapCell
-        GameObject newCellGO = Instantiate(
-            _trapCellPrefab,
-            position,
-            rotation,
-            parent
-        );
+        GameObject newCellGO = Instantiate(_trapCellPrefab, position, rotation, parent);
 
-        // Sécurité CRUCIALE : vérifier le script
         S_TrapCell trapCell = newCellGO.GetComponent<S_TrapCell>();
         if (trapCell == null)
         {
@@ -125,7 +130,6 @@ public class S_Hunter : MonoBehaviour
             return;
         }
 
-        // Synchroniser le board (source de vérité)
         _board.ReplaceCell(index, trapCell);
     }
 

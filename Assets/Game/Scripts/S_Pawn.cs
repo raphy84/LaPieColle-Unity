@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -19,14 +19,17 @@ public class S_Pawn : MonoBehaviour
 
     private void Start()
     {
-        _playerDatas._cellIndex = 0;
-        MoveInstantToCell();
-        ActivateCell();
-        _UIController.UpdateHeart(_heath);
+        if (!S_GlobalData.ReturningFromMiniGame)
+        {
+            _playerDatas._cellIndex = 0;
+            MoveInstantToCell();
+            ActivateCell();
+            if (_UIController != null) _UIController.UpdateHeart(_heath);
+        }
     }
 
     // Placement instantané (au start uniquement)
-    private void MoveInstantToCell()
+    public void MoveInstantToCell()
     {
         Transform cell = _board
             .GetCellByNumber(_playerDatas._cellIndex)
