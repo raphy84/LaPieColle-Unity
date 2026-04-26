@@ -30,7 +30,8 @@ public class S_TrapCell : S_Cell, S_Actionnable
             }
         }
 
-        // Transition hard vers le MiniGame
-        SceneManager.LoadScene("MiniGameScene", LoadSceneMode.Single);
+        // Transition alatoire vers l'un des deux MiniGames
+        string nextScene = Random.value > 0.5f ? "MiniGameScene" : "MiniGameTreeScene";
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
-}
+}

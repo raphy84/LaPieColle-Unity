@@ -34,7 +34,7 @@ Aucun effet.
 
 Case Piège
 -Placée uniquement par Serpant.
--Lance le mini-jeu de "Cache-Cache" avec le Hunter.
+-Lance aléatoirement (1 chance sur 2) l'un des deux mini-jeux : "Hunter" ou "Tree Climber".
 -En cas de victoire, le joueur évite les dégâts et la case est supprimée.
 -En cas de défaite, inflige 1 point de dégât au joueur.
 
@@ -50,6 +50,17 @@ Comportements du Hunter
 -Si le joueur est repéré par le hunter il est poursuivie jusqu'a le toucher.
 -Au milieu de c'est patrouilles il fait des poses pour sentire la trace du joueur, a la fin de l'annimation il se rend a la position du joueur, une foit arriver il reprend sa routine.
 -Si le Hunter touche le joueur, le mini-jeu est perdu.
+
+
+Mini-Jeu Tree Climber (Grimpette FPS)
+Le joueur doit monter tout en haut d'un arbre en sautant de branche en branche sans être touché par les balles tirées par le chasseur.
+
+Comportements et Objectifs
+-Vue à la première personne (FPS).
+-Déplacement avec ZQSD et Saut avec Espace.
+-Des balles apparaissent autour du joueur et se dirigent vers lui.
+-Si le joueur est touché par une balle ou s'il tombe dans le vide, le mini-jeu est perdu.
+-Si le joueur atteint le sommet de l'arbre, le mini-jeu est gagné.
 
 
 Case Nourriture
